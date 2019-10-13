@@ -34,7 +34,7 @@
             <%= sanitize product_description(@product) %>
           </div>
           
-          <% if !@product.amazon_link.empty? %>
+          <% if !@product.amazon_link.blank? %>
            <div id="amazon-link" data-hook="amazon-link">
             <div class=" ">
               
