@@ -1,0 +1,11 @@
+<% if !@product.amazon_link.blank? %>
+           <div id="amazon-link" data-hook="amazon-link">
+            <div class=" ">
+
+           <%= link_to @product.amazon_link , class: 'btn btn-warning btn-block' do %>
+           <%=@product.amazon_title%> Now!
+           <% end %>
+
+         </div>
+          </div>
+           <% end %>
