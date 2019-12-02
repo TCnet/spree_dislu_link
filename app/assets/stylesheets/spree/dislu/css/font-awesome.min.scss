@@ -2,8 +2,8 @@
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */@font-face{font-family:'FontAwesome';
- src:url('dislu/fonts/fontawesome-webfont.eot?v=4.7.0');
- src:url('dislu/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'),
+ src:url('<%= asset_path("fonts/fontawesome-webfont.eot") %>');
+ src:url('<%= asset_path("fonts/fontawesome-webfont.eot") %>') format('embedded-opentype'),
  url('dislu/fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'),
  url('dislu/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'),
  url('dislu/fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'),
