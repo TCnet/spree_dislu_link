@@ -1,0 +1,30 @@
+
+<%= render partial: 'spree/shared/dislu_top_bar' %>
+
+<div class="container">
+    <div class="main-header">
+        <div class="row">
+            <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
+                <div class="logo">
+                <figure id="logo"  data-hook>
+                    <%= logo %>
+                </figure>
+                </div>
+            </div>
+                <div  class="col-lg-6 col-sm-8 col-md-9 col-xs-5 col-ts-12">
+                   <%= render partial: 'spree/shared/search' %>
+               </div>
+               <div class="col-lg-3 col-sm-12 col-md-12 col-xs-12 col-ts-12 ">
+                <div class="header-control">
+                  <%= render partial: 'spree/shared/dislu_top_cart' %>
+                  <%= render partial: 'spree/shared/dislu_top_login' %>
+                  <a class="menu-bar mobile-navigation menu-toggle" href="#">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
+               </div>
+              </div>
+        </div>
+   </div>
+</div>

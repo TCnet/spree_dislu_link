@@ -1,0 +1,18 @@
+<% max_level = Spree::Config[:max_level_in_taxons_menu] || 1 %>
+<div id="taxonomies" data-hook arial-> 
+  <% if @taxonomies.nil?  %>
+     <% @taxonomies =Spree::Taxonomy.includes(root: :children) %>
+     <% end %>
+  <% @taxonomies.each do |taxonomy| %>
+  <% cache [I18n.locale, taxonomy, max_level, @taxon] do %>
+  <% if taxonomy.root.children.any? %>
+  <div class="widget widget-categories mb-4">
+    <h3 class="widgettitle"><%= taxonomy.name %></h3>
+    <%= dislu_taxons_tree(taxonomy.root, @taxon, max_level) %>
+  </div>
+  <% end %>
+  <% end %>
+  <% end %>
+</div>
+
+

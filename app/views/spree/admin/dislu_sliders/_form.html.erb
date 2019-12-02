@@ -1,0 +1,111 @@
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:back_to_resource_list, resource: plural_resource_name(Spree::DisluSlider)), spree.admin_dislu_sliders_path, icon: 'arrow-left', class: 'btn-primary' %>
+<% end %>
+
+<%= form_for [:admin, resource] do |f| %>
+  <%= render partial: 'spree/shared/error_messages', locals: { target: @dislu_slider } %>
+  <div class="row" data-hook="admin_dislu_slider_form_fields">
+    <div class="col-lg-6" data-hook="admin_dislu_slider_form_left">
+      <div class="form-group">
+        <%= f.label :name %> <span class="required">*</span>
+        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.error_message_on :name %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :slug %> <span class="required">*</span>
+        <%= f.text_field :slug, class: 'form-control' %>
+        <%= f.error_message_on :slug %>
+      </div>
+      <div class="form-group">
+        <%= f.label :remark %> 
+        <%= f.text_field :remark, class: 'form-control' %>
+        <%= f.error_message_on :remark %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :note %> <span class="required">*</span>
+        <%= f.text_area :note, rows: 12, class: 'form-control' %>
+        <%= f.error_message_on :note %>
+      </div>
+
+        <% if Spree.version.to_f >= 3.6 %>
+         <div class="form-group">
+          <%= f.field_container :image do %>
+            <%= f.label :image %>
+            <%= f.file_field :image %>
+            <%= image_tag main_app.url_for(@dislu_slider.image.url(:small)) if @dislu_slider.image %>
+          <% end %>
+           </div>
+       <% end %>
+
+
+    </div>
+
+    <div class="col-lg-6" data-hook="admin_page_form_right">
+      <div class="form-group">
+        <%= f.label :foreign_link %>
+        <%= f.text_field :foreign_link, class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :position %>
+        <%= f.number_field :position, min: 0, class: 'form-control' %>
+      </div>
+
+      <div class="checkbox form-check">
+        <%= f.label :show_in_home, { class: 'form-check-label' } do %>
+          <%= f.check_box :show_in_home, { class: 'form-check-input' } %>
+          <%= Spree::DisluSlider.human_attribute_name(:show_in_home) %>
+        <% end %>
+      </div>
+
+      <div class="checkbox form-check">
+        <%= f.label :show_in_product, { class: 'form-check-label' } do %>
+          <%= f.check_box :show_in_product, { class: 'form-check-input' } %>
+          <%= Spree::DisluSlider.human_attribute_name(:show_in_product) %>
+        <% end %>
+      </div>
+
+      <div class="checkbox form-check">
+        <%= f.label :show_in_page, { class: 'form-check-label' } do %>
+          <%= f.check_box :show_in_page, { class: 'form-check-input' } %>
+          <%= Spree::DisluSlider.human_attribute_name(:show_in_page) %>
+        <% end %>
+      </div>
+
+      <div class="checkbox form-check">
+        <%= f.label :show_in_sidebar, { class: 'form-check-label' } do %>
+          <%= f.check_box :show_in_sidebar, { class: 'form-check-input' } %>
+          <%= Spree::DisluSlider.human_attribute_name(:show_in_sidebar) %>
+        <% end %>
+      </div>
+
+      <div class="checkbox form-check">
+        <%= f.label :visible, { class: 'form-check-label' } do %>
+          <%= f.check_box :visible, { class: 'form-check-input' }%>
+          <%= Spree::DisluSlider.human_attribute_name(:visible) %>
+        <% end %>
+      </div>
+
+     
+      <div class="form-group mt-3">
+        <%= f.label :stores, plural_resource_name(Spree::Store) %>
+        <% Spree::Store.all.each do |store| %>
+          <div class="checkbox form-check">
+            <%= f.label store.name.downcase.to_sym, { class: 'form-check-label' } do %>
+              <%= check_box_tag 'dislu_slider[store_ids][]', store.id, @dislu_slider.stores.include?(store), { class: 'form-check-input' } %>
+              <%= store.name %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-hook="admin_dislu_slider_form_additional_fields">
+    <div class="col-lg-12"></div>
+  </div>
+
+  <%= render "spree/admin/shared/#{resource.new_record? ? 'new' : 'edit'}_resource_links" %>
+<% end %>

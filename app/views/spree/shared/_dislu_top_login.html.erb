@@ -1,0 +1,92 @@
+
+
+<div class="block-account block-header nozari-dropdown">
+    <% if spree_current_user %>
+   <a href="javascript:void(0);" data-nozari="nozari-dropdown">
+     <span class="flaticon-user"></span>
+     </a>
+    
+    <div class="header-account nozari-submenu">
+        <div class="header-user-form-tabs">
+          <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a data-toggle="tab" class="nav-link active" aria-expanded="true" href="#header-tab-account">
+                        <%= Spree.t('my_informations')%>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div id="header-tab-account" class="tab-pane show active">
+                <div class="px-4">
+                 <p class="pt-3"><i class="fa fa-user mr-2" aria-hidden="true"></i><%= link_to Spree.t(:my_account), spree.account_path, class: ""%></p>
+                 <p class=""><i class="fa fa-sign-out mr-2" aria-hidden="true"></i><%= link_to Spree.t(:logout), spree.logout_path %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <% else %>
+     <a href="javascript:void(0);" data-nozari="nozari-dropdown">
+     <span class="flaticon-user"></span>
+     </a>
+    
+    <div class="header-account nozari-submenu">
+        <div class="header-user-form-tabs">
+            <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a data-toggle="tab" class="nav-link active" aria-expanded="true" href="#header-tab-login">Login</a>
+                </li>
+                 <li class="nav-item">
+                    <a data-toggle="tab" class="nav-link " aria-expanded="true" href="#header-tab-rigister">Register</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="header-tab-login" class="tab-pane show active">
+                    <%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, class: 'login form-login' do |f| %>
+                      <fieldset>
+                        <p class="form-row form-row-wide">
+                             <%= f.email_field :email, class: 'form-control', tabindex: 1, placeholder: Spree.t(:email),required: 'true'%>
+                        </p>
+                         <p class="form-row form-row-wide">
+                             <%= f.password_field :password, class: 'form-control', tabindex: 2, placeholder: Spree.t(:password) ,required: 'true'%>
+                        </p>
+                         <p class="form-row">
+                           
+                          <label class="form-checkbox">
+                            <%= f.check_box :remember_me, class:'input-checkbox'%>
+                            <span>
+                            <%= Spree.t(:remember_me) %>
+                            </span>
+                          </label>
+                            <%= f.submit Spree.t(:login), class: 'button' %>
+                        </p>
+                         <p class="lost_password">
+
+                             <%= link_to Spree.t(:forgot_password), spree.recover_password_path %>
+                       
+                    </p>
+                      </fieldset>
+                    <% end %>
+                </div>
+                 <div id="header-tab-rigister" class="tab-pane">
+                 <%= form_for Spree::User.new, as: :spree_user, url: spree.registration_path , class: 'register form-register' do |f| %>
+                   <p class="form-row form-row-wide">
+                    <%= f.email_field :email, class: 'input-text require', :placeholder => Spree.t(:email) , required: 'true'%>
+                    </p>
+                    <p class="form-row form-row-wide">
+                    <%= f.password_field :password, :class => 'input-text', :placeholder => Spree.t(:password) ,required: 'true'%>
+                    </p>
+                    <p class="form-row form-row-wide">
+                    <%= f.password_field :password_confirmation, :class => 'input-text', :placeholder => Spree.t(:confirm_password) ,required: 'true'%>
+                    </p>
+                    <p class="form-row">
+                        <%= f.submit Spree.t(:create), :class => 'button' %>
+                    </p>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% end %>
+</div>

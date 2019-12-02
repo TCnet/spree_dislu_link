@@ -1,0 +1,40 @@
+<% url = spree.product_path(product, taxon_id: taxon.try(:id)) %>
+<li id="product_<%= product.id %>" class="product-item  col-lg-4 col-md-6 col-sm-6 col-xs-6 col-ts-12 style-1" data-hook="products_list_item">
+ <div class="product-inner equal-element">
+    <% cache(taxon.present? ? [I18n.locale, current_currency, taxon, product] : cache_key_for_product(product)) do %>
+    <%if is_new_product(product) %>
+        <div class="product-top">
+            <div class="flash">
+                <span class="onnew">
+                    <span class="text">
+                        new
+                    </span>
+                </span>
+            </div>
+        </div>
+     <% end %>
+     <div class="product-thumb">
+            <div class="thumb-inner">
+                <%= link_to url  do %>
+                <%= product_image(product) %>
+                <% end %>
+              
+            </div>
+        </div>
+         <div class="product-info">
+            <h5 class="product-name product_title">
+                <%= link_to url  do %>
+                <%= truncate(product.name, length: 50) %>
+                <% end %>
+            </h5>
+            <div class="group-info">
+                <div class="price">
+                    <ins>
+                        <%= display_price(product) %>
+                    </ins>
+                </div>
+            </div>
+        </div>
+    <% end %>
+  </div>
+</li>

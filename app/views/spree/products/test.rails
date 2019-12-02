@@ -1,0 +1,62 @@
+<div class="main-content main-content-product left-sidebar">
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="breadcrumb-trail breadcrumbs">
+              <ul class="trail-items breadcrumb ">
+                  <li class="trail-item trail-begin">
+                      <%= link_to Spree.t(:home), spree.root_path %>
+                  </li>
+                  <li class="trail-item trail-end active">
+                      <%= link_to Spree.t(:products), spree.products_path %>
+                  </li>
+              </ul>
+            </div>
+        </div>
+      </div>
+       <%= render :partial => 'spree/shared/dislu_flash_message' %>
+  
+      <div class="row">
+         <div class="sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="wrapper-sidebar shop-sidebar">
+                    <div class="widget woof_Widget">
+                      <% if "spree/products" == params[:controller] && @taxon || @taxonomies.present? %>
+                      <% if "spree/products" == params[:controller] && @taxon %>
+                      <%= render partial: 'spree/shared/dislu_filters' %>
+                    <% else %>
+                      <%= render partial: 'spree/shared/dislu_taxonomies' %>
+                    <% end %>
+                    <% end %>
+                      
+                    </div>
+                    
+                </div>
+            </div>
+        <div class="content-area shop-grid-content no-banner col-lg-9 col-md-9 col-sm-12 col-xs-12">
+          <% if params[:keywords] %>
+           <div data-hook="search_results" class="site-main">
+               <% if @products.empty? %>
+              <h3 class="custom_blog_title"> <%= Spree.t(:no_products_found) %></h3>
+               <% else %>
+                <%= render partial: 'spree/shared/dislu_products', locals: { products: @products, taxon: @taxon } %>
+              <% end %>
+           </div>
+           <% else %>
+           <div class="site-main">
+               <h3 class="custom_blog_title">
+              </h3>
+               <% cache(cache_key_for_products) do %>
+      <%= render partial: 'spree/shared/dislu_products', locals: { products: @products, taxon: @taxon } %>
+                <% end %>
+
+           </div>
+           <% end %>
+         </div>
+         
+      </div>
+  </div>
+</div>
+
+
+
+<%= products_structured_data(@products) %>

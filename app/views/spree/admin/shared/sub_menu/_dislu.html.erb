@@ -1,0 +1,11 @@
+<ul id="sidebar-dislu-link" class="border-top bg-white collapse nav nav-pills nav-stacked" data-hook="admin_dislu_link_sub_tabs">
+
+
+
+<%= configurations_sidebar_menu_item(Spree.t('dislu_settings.title'), spree.edit_admin_dislu_settings_path) if can? :manage, Spree::DisluConfiguration %>
+
+<%= configurations_sidebar_menu_item(Spree.t('dislu_sliders.title'), spree.admin_dislu_sliders_path) if can? :manage, Spree::DisluSlider %>
+
+</ul>
+
+

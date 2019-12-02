@@ -1,0 +1,56 @@
+<div class="site-content">
+  <main class="site-main  main-container no-sidebar">
+    <div class="container">
+      <div class="breadcrumb-trail breadcrumbs">
+        <ul class="trail-items breadcrumb">
+          <li class="trail-item trail-begin">
+           <%= link_to Spree.t(:home), spree.root_path %>
+         </a>
+       </li>
+       <li class="trail-item trail-end active">
+        <span>
+          <%= Spree.t(:editing_user) %>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <%= render :partial => 'spree/shared/dislu_flash_message' %>
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @user } %>
+
+  <div class="row">
+    <div class="main-content-cart main-content col-sm-12">
+      <h3 class="custom_blog_title mb-3">
+       <%= Spree.t(:editing_user) %>
+     </h3>
+     <div class="page-main-content ">
+       <div class="customer_login">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 offset-lg-3 offset-md-3">
+            <div class="login-item">
+             <div class="login">
+              <%= form_for Spree::User.new, :as => @user, :url => spree.user_path(@user), :method => :put do |f| %>
+              <%= render :partial => 'spree/shared/user_form', :locals => { :f => f } %>
+              <div>
+                <%= f.submit Spree.t(:update), :class => 'btn btn-primary' %>
+              </div>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</main>
+</div>
+
+
+
+
+
+
+

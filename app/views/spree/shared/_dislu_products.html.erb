@@ -1,0 +1,31 @@
+<% content_for :head do %>
+  <% if products.respond_to?(:total_pages) %>
+    <%= rel_next_prev_link_tags products %>
+  <% end %>
+<% end %>
+
+
+
+<div data-hook="products_search_results_heading">
+  <% if products.empty? %>
+  <div data-hook="products_search_results_heading_no_results_found">
+     <h3 class="custom_blog_title"><%= Spree.t(:no_products_found) %></h3>
+    </div>
+  <% elsif params.key?(:keywords) %>
+  <div data-hook="products_search_results_heading_results_found">
+      <h3 class="custom_blog_title">
+      <%= Spree.t(:search_results, keywords: h(params[:keywords])) %>
+  </h3>
+    </div>   
+  <% end %>
+</div>
+
+<% if products.any? %>
+    <ul id="products" class="row list-products auto-clear equal-container product-grid" data-hook>
+    <%= render partial: 'spree/products/product', collection: products, locals: { taxon: @taxon } %>
+   </ul>
+<% end %>
+
+<% if products.respond_to?(:total_pages) %>
+  <%= paginate products, theme: 'dislu_page', pagination_class: 'text-center' %>
+<% end %>

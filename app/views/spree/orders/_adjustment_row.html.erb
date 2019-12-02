@@ -1,0 +1,11 @@
+<% if adjustments.sum(&:amount) != 0 %>
+  <tr class="adjustment">
+    <td  class="actions py-0 " align='right' >
+      <div class="coupon " >
+      <%= type %>: <%= label %></div>
+     <div class="order-total " >
+       <%= Spree::Money.new(adjustments.sum(&:amount), currency: @order.currency) %>
+     </div>
+    </td>
+  </tr>
+<% end %>

@@ -1,6 +1,8 @@
 module SpreeDisluLink
   class Engine < Rails::Engine
     require 'spree/core'
+ 
+
     isolate_namespace Spree
     engine_name 'spree_dislu_link'
 
@@ -16,5 +18,9 @@ module SpreeDisluLink
     end
 
     config.to_prepare(&method(:activate).to_proc)
+
+    initializer 'spree.dislu.environment', before: :load_config_initializers do |_app|
+        SpreeDisluLink::Config = Spree::DisluConfiguration.new
+    end
   end
 end

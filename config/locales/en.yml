@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  spree:
+    dislu_link: 'DisluLink'
+    dislu_sliders:
+      title: "Sliders"
+    dislu_settings:
+      title: "Dislu Settings"
+      settings:
+        title: "Dislu Configuration"
+        show_best_sellers: "Show Best Sellers in shop"
+        max_best_sellers: "Max number of Best Sellers"
+       

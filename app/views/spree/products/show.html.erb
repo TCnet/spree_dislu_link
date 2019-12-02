@@ -1,0 +1,56 @@
+<% @body_id = 'product-details' %>
+<% cache cache_key_for_product do %>
+<div class="main-content main-content-details single no-sidebar">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb-trail breadcrumbs">
+          <ul class="trail-items breadcrumb">
+            <li class="trail-item trail-begin">
+             <%= link_to Spree.t(:home), spree.root_path %>
+           </li>
+           <% taxon = @product.taxons.first %>
+           <% unless taxon.nil? %>
+           <li class="trail-item">
+            <%= link_to(taxon.name, seo_url(taxon))%>
+          </li>
+          <% end %>
+          <li class="trail-item trail-end active">
+            <%= @product.name %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <%= render :partial => 'spree/shared/dislu_flash_message' %>
+  <div class="row">
+   <div class="content-area content-details full-width">
+    <div class="site-main">
+      <div class="details-product">
+        <%= render partial: 'dislu_images' %>
+
+        <div class="details-infor px-3">
+          <h1 class="product-title">
+            <%= @product.name %>
+          </h1>
+         
+          <%= render partial: 'spree/shared/add_dislu_link_to_products_show' %>
+
+          <div id="cart-form" data-hook="cart_form">
+            <%= render partial: 'cart_form' %>
+          </div>
+         </div>
+
+      </div>
+      <%= render partial: 'tab_details' %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+<% end %>
+
+<%= products_structured_data([@product]) %>

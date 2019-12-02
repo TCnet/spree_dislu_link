@@ -1,0 +1,60 @@
+  <div class="main-content main-content-login">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb-trail breadcrumbs">
+            <ul class="trail-items breadcrumb">
+              <li class="trail-item trail-begin">
+                 <%= link_to Spree.t(:home), spree.root_path %>
+              </li>
+              <li class="trail-item trail-end active">
+                <%= Spree.t(:authentication) %>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <%= render :partial => 'spree/shared/dislu_flash_message' %>
+      <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @spree_user } %>
+      <div class="row">
+        <div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="site-main" id='forgot-password'>
+            <h3 class="custom_blog_title">
+              <%= Spree.t(:authentication) %>
+            </h3>
+            <div class="customer_login">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 offset-lg-3 offset-md-3">
+                  <div class="login-item"  data-hook="login">
+                    <h5 class="title-login">
+                     
+                        <%= Spree.t(:forgot_password) %>
+                      </h5>
+                      <div class="login">
+                     <%= form_for Spree::User.new, :as => :spree_user, :url => spree.reset_password_path do |f| %>
+                     <p>
+                        <%= Spree.t(:instructions_to_reset_password) %>
+                     </p>
+                    <div class="form-group">
+                      <%= f.label :email, Spree.t(:email) %>
+                      <%= f.email_field :email, class: "form-control", required: 'true' %>
+                    </div>
+                    <div>
+                      <%= f.submit Spree.t(:reset_password), class: 'button-submit' %>
+                    </div>
+                  <% end %>
+                    </div>
+                     
+                  </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

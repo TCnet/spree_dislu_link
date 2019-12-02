@@ -1,0 +1,22 @@
+<div class="details-infor px-3">
+    <h1 class="product-title">
+        <%= @product.name %>
+    </h1>
+    <div class="availability">
+        availability:
+        <a href="#">in Stock</a>
+    </div>
+    <div class="price">
+        <span>  <%= display_price(@product) %></span>
+    </div>
+    <div class="product-details-description">
+        <ul>
+            <li>Vestibulum tortor quam</li>
+            <li>Imported</li>
+            <li>Art.No. 06-7680</li>
+        </ul>
+    </div>
+    <div id="cart-form" data-hook="cart_form">
+      <%= render partial: 'cart_form' %>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<% @body_id = 'login' %>
+  <div class="main-content main-content-login">
+    <div class="container">
+      <div class="row ">
+        <div class="col-lg-12 ">
+          <div class="breadcrumb-trail breadcrumbs ">
+            <ul class="trail-items breadcrumb ">
+              <li class="trail-item trail-begin">
+                 <%= link_to Spree.t(:home), spree.root_path %>
+              </li>
+              <li class="trail-item trail-end active">
+                <%=Spree.t(:login_or_register)%>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <%= render :partial => 'spree/shared/dislu_flash_message' %>
+        <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @user } %>
+      <div class="row">
+        <div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="site-main">
+            <h3 class="custom_blog_title">
+              <%=Spree.t(:login)%>
+            </h3>
+            <div class="customer_login">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="login-item" id="existing-customer" data-hook="login">
+                    <h5 class="title-login">Login your Account</h5>
+                    <%= render :partial => 'spree/shared/dislu_login' %>
+                     <div data-hook="login_extras"></div>
+                  </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                  <div class="login-item">
+                    <h5 class="title-login">Don’t have an Account? Register now!</h5>
+                     <%= render :partial => 'spree/shared/dislu_register' %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

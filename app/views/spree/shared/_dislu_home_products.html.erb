@@ -1,0 +1,46 @@
+<div class="dislu-tabs mt-3">
+            <div class="container">
+                <div class="tab-head text-center">
+                    <ul class="nav nav-tabs " id="tab_home_products">
+                        <li class="nav-item">
+                            <a class="nav-link " data-toggle="tab"  role="tab" aria-selected="false"  aria-controls="bestseller"   href="#bestseller">Bestseller</a>
+                        </li>
+                       <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab"  role="tab" aria-controls="new_arrivals"   aria-selected="false" href="#new_arrivals">New Arrivals </a>
+                        </li>
+                       <li  class="nav-item">
+                            <a class="nav-link " data-toggle="tab"  role="tab" aria-controls="top-rated" aria-selected="false"  href="#top-rated">Top Rated</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-container">
+                     <div id="bestseller" class="tab-panel ">
+                        <div class="nozari-product">
+                            <ul class="row list-products auto-clear equal-container product-grid">
+                                <% if !@best_sellers.nil?%>
+                                <%= render :partial => 'spree/shared/dislu_product_info', :locals => { :products => @best_sellers } %>
+                                <%end%>
+                            </ul>
+                        </div>
+                    </div>
+                     <div id="new_arrivals" class="tab-panel show active">
+                         <div class="nozari-product">
+                            <ul class="row list-products auto-clear equal-container product-grid">
+                                <% if !@new_arrivals.nil?%>
+                                <%= render :partial => 'spree/shared/dislu_product_info', :locals => { :products => @new_arrivals } %>
+                                <%end%>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="top-rated" class="tab-panel">
+                     <div class="nozari-product">
+                            <ul class="row list-products auto-clear equal-container product-grid">
+                                <% if !@top_rated.nil?%>
+                                <%= render :partial => 'spree/shared/dislu_product_info', :locals => { :products => @top_rated } %>
+                                <%end%>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

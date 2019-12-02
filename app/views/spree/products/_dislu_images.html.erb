@@ -1,0 +1,42 @@
+<div class="details-thumd px-3">
+    <div class="image-preview-container image-thick-box image_preview_container">
+        <img id="img_zoom" data-zoom-image="<%= large_image_url(@product) %>"
+        src="<%= large_image_url(@product) %>" alt="<%=@product.name%>">
+        <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+    </div>
+    <%# no need for thumbnails unless there is more than one image %>
+<% if (@product.images + @product.variant_images).uniq.size > 1 %>
+  <div id="product-thumbnails" class="product-preview image-small product_preview">
+     <ul id="thumbnails" class="thumbnails_carousel thumbnails d-flex w-100 pl-0 my-4 " data-nav="true"  
+        data-autoplay="false" data-dots="false" data-loop="false" data-margin="10"
+        >
+       <% @product.images.each do |i| %>
+        <li class='tmb-all tmb-<%= i.viewable.id %> owl-item' style="max-width: 120px; ">
+        <a href="#" data-image="<%=main_app.url_for(i.url(:xbig))%>"
+          data-zoom-image="<%=main_app.url_for(i.url(:xbig))%>" >
+          <img src="<%=main_app.url_for(i.url(:median))%>"
+          data-large-image="<%=main_app.url_for(i.url(:xbig))%>" alt="img">
+        </a></li>
+
+       <% end %>
+      <% if @product.has_variants? %>
+        <% @product.variant_images.each do |i| %>
+          <% next if @product.images.include?(i) %>
+           <li class='vtmb tmb-<%= i.viewable.id %>' style="max-width: 120px; ">
+             <a href="#" data-image="<%=main_app.url_for(i.url(:xbig))%>"
+            data-zoom-image="<%=main_app.url_for(i.url(:xbig))%>" >
+            <img src="<%=main_app.url_for(i.url(:median))%>"
+            data-large-image="<%=main_app.url_for(i.url(:xbig))%>" alt="img">
+              </a>
+          </li>
+        <% end %>
+       <% end %>
+       <li>&nbsp;</li>
+     </ul>
+
+
+    </div>
+</div>
+  
+<% end %>
+</div>

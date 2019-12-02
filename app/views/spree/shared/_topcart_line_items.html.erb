@@ -1,0 +1,32 @@
+
+<li class="product-cart mini_cart_item">
+<% if variant.images.length == 0 %>
+<%= link_to small_image(variant.product), variant.product ,class: 'product-media'%>
+<% else %>
+<%= link_to image_tag(main_app.url_for(variant.images.first.url(:small))), variant.product, class: 'product-media'%>
+<% end %>
+<div class="product-details">
+  <h5 class="product-name">
+    <%= link_to truncate(line_item.name),variant.product%>
+  </h5>
+  <div class="variations">
+    <span class="attribute_color">
+      <%= variant.options_text%>
+    </span>
+  </div>
+  <span class="product-price">
+    <span class="price">
+      <span><%= line_item.single_money.to_html %></span>
+    </span>
+  </span>
+  <span class="product-quantity">
+    (x<%=line_item.quantity%>)
+
+  </span>
+ <!--  <div class="product-remove">
+   
+      <input type="hidden" class="quantity" value="<%line_item.quantity%>">
+      <%= link_to content_tag(:i, '', class: 'fa fa-trash-o'), '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %>
+    </div>
+  </div> -->
+</li>

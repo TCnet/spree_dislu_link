@@ -1,0 +1,86 @@
+<div class="site-content">
+  <main class="site-main  main-container no-sidebar">
+    <div class="container">
+      <div class="breadcrumb-trail breadcrumbs">
+        <ul class="trail-items breadcrumb">
+          <li class="trail-item trail-begin">
+           <%= link_to Spree.t(:home), spree.root_path %>
+         </a>
+       </li>
+       <li class="trail-item trail-end active">
+        <span>
+          <%= accurate_title %>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <%= render :partial => 'spree/shared/dislu_flash_message' %>
+  <div class="row">
+    <div class="main-content-cart main-content col-sm-12">
+      <h3 class="custom_blog_title mb-3">
+        <%= accurate_title %>
+      </h3>
+      <div class="page-main-content ">
+        <div data-hook="account_summary" class="account-summary card bg-light">
+          <dl id="user-info" class="px-3 py-3 ">
+            <dt><%= Spree.t(:email) %></dt>
+            <dd><%= @user.email %> (<%= link_to Spree.t(:edit), spree.edit_account_path %>)</dd>
+            <br />
+            <dt><%= Spree.t(:credit_balance, scope: [:store_credits])%></dt>
+            <dd>
+              <%= Spree::Money.new(spree_current_user.total_available_store_credit, currency: Spree::Config[:currency]) %>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="main-content-cart main-content col-sm-12 pt-0 pb-0 my-0">
+      <h3 class="custom_blog_title mb-3">
+        <%= Spree.t(:my_orders) %>
+      </h3>
+      <div class="page-main-content pb-4">
+        <div data-hook="account_my_orders" class="account-my-orders">
+          <% if @orders.present? %>
+          <table class="table table-striped order-summary">
+            <thead class="active">
+              <tr>
+                <th class="order-number"><%= Spree::Order.human_attribute_name(:number) %></th>
+                <th class="order-date"><%= Spree.t(:date) %></th>
+                <th class="order-status"><%= Spree.t(:status) %></th>
+                <th class="order-payment-state"><%= Spree.t(:payment_state) %></th>
+                <th class="order-shipment-state"><%= Spree.t(:shipment_state) %></th>
+                <th class="order-total"><%= Spree.t(:total) %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @orders.each do |order| %>
+              <tr>
+                <td class="order-number"><%= link_to order.number, order_url(order) %></td>
+                <td class="order-date"><%= l order.completed_at.to_date %></td>
+                <td class="order-status"><%= Spree.t("order_state.#{order.state}").titleize %></td>
+                <td class="order-payment-state"><%= Spree.t("payment_states.#{order.payment_state}").titleize if order.payment_state %></td>
+                <td class="order-shipment-state"><%= Spree.t("shipment_states.#{order.shipment_state}").titleize if order.shipment_state %></td>
+                <td class="lead text-primary order-total"><%= order.display_total %></td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <% else %>
+          <div class="alert alert-info " role="alert"><%= Spree.t(:you_have_no_orders_yet) %></div>
+          <% end %>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+</div>
+
+
+
+
+
+
+

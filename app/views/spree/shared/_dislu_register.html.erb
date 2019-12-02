@@ -1,0 +1,26 @@
+<div class="register">
+<%= form_for Spree::User.new, :as => :spree_user, :url => spree.registration_path do |f| %>
+    
+    <fieldset id="password-credentials">
+
+     <div class="form-group">
+      <%= f.email_field :email, class: 'input-text form-control', :placeholder => Spree.t(:email) ,required: 'true'%>
+    </div>
+    
+    <div class="form-group">
+      <%= f.password_field :password, class: 'input-text form-control', :placeholder => Spree.t(:password), required: 'true' %>
+    </div>
+     <div class="form-group">
+      <%= f.password_field :password_confirmation, class: 'input-text form-control', :placeholder => Spree.t(:confirm_password), required: 'true' %>
+   </div>
+  </fieldset>
+  <div data-hook="signup_below_password_fields"></div>
+  
+  <div class="form-group">
+    <%= f.submit Spree.t(:create), class: 'button-submit' %>
+   
+  </div>
+  
+  <% end %>
+</div>
+

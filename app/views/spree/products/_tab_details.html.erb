@@ -1,0 +1,30 @@
+<div class="dislu-tabs tab-details-product ">
+    <div class="container">
+        <div class="mb-4 text-center">
+            <ul class="nav nav-tabs tab-link">
+               <li class="">
+                <a class="nav-link active" data-toggle="tab" aria-expanded="true" href="#product-descriptions"><%= Spree.t(:descriptions) %> </a>
+                </li>
+                <li class="">
+                    <a class="nav-link " data-toggle="tab" aria-expanded="true" href="#information"><%= Spree.t('properties')%> </a>
+                </li>
+                <li class="">
+                    <a class="nav-link " data-toggle="tab" aria-expanded="true" href="#tab-3"><%= Spree.t(:promotions) %></a>
+                </li>
+            </ul>
+         </div>
+    </div>
+  <div class="tab-container px-3">
+    <div id="product-descriptions" class="tab-panel active">
+         <%= sanitize product_description(@product) %>
+    </div>
+    <div id="information" class="tab-panel">
+         <div data-hook="product_properties">
+          <%= render partial: 'properties' %>
+        </div>
+    </div>
+    <div id="tab-3" class="tab-panel">
+        <%= render partial: 'promotions' %>
+    </div>
+</div>
+</div>

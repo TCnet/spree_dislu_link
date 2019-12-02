@@ -1,0 +1,62 @@
+<% content_for :page_title do %>
+<%= plural_resource_name(Spree::DisluSlider) %>
+<% end %>
+
+<% content_for :page_actions do %>
+<%= button_link_to Spree.t(:new_dislu_slider), new_admin_dislu_slider_url, { class: "btn-success", icon: 'add', id: 'admin_new_dislu_slider' } %>
+<%end%>
+
+<% if @dislu_sliders.any? %>
+<div class="row">
+  <table class="table" id="listing_dislu_sliders">
+    <thead>
+      <tr data-hook="admin_dislu_sliders_index_headers">
+        <th><%= Spree.t(:name) %></th>
+        <th><%= Spree.t(:image) %></th>
+        <th><%= Spree.t(:home) %></th>
+        <th><%= Spree.t(:product) %></th>
+        <th><%= Spree.t(:page) %></th>
+        <th><%= Spree.t(:sidebar) %></th>
+        <th><%= Spree.t(:visible) %></th>
+        <th><%= Spree.t(:position) %></th>
+         <th><%= Spree.t(:link) %></th>
+        <th><%= Spree.t(:remark) %></th>
+        <th><%= Spree.t(:date) %></th>
+        <th data-hook="admin_dislu_sliders_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+     <tbody>
+      <% @dislu_sliders.each do |f|%>
+      <tr>
+        <td><%= f.name %></td>
+         <td>
+          <%= image_tag main_app.url_for(f.image.url(:small)) if f.image %>
+         </td>
+          <td><%= f.show_in_home? ? content_tag(:i, '', class: 'icon icon-ok') :  content_tag(:i, '', class: 'icon icon-remove')%></td>
+          <td><%= f.show_in_product? ? content_tag(:i, '', class: 'icon icon-ok') :  content_tag(:i, '', class: 'icon icon-remove')%></td>
+         <td><%= f.show_in_page? ? content_tag(:i, '', class: 'icon icon-ok') :  content_tag(:i, '', class: 'icon icon-remove')%></td>
+         <td><%= f.show_in_sidebar? ? content_tag(:i, '', class: 'icon icon-ok') :  content_tag(:i, '', class: 'icon icon-remove')%></td>
+         <td><%= f.visible? ? content_tag(:i, '', class: 'icon icon-ok') :  content_tag(:i, '', class: 'icon icon-remove')%></td>
+          <td><%= f.position %></td>
+        <td><%= f.link %></td>
+         <td><%= f.remark %></td>
+        <td><%= f.created_at.strftime("%F") %></td>
+        <td class="actions actions-1 text-right" data-hook="admin_dislu_sliders_index_row_actions">
+         <%= link_to_edit f, no_text: true if can?(:edit, f)  %>
+         <%= link_to_delete f, no_text: true if can?(:delete, f)  %>
+       </td>
+     </tr>
+     <%end%>
+   </tbody>
+ </table>
+ 
+</div>
+<%else%>
+ <div class="alert alert-warning no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: Spree::DisluSlider.model_name.human) %>,
+    <%= link_to Spree.t(:add_one), spree.new_admin_page_path %>!
+  </div>
+<%end%>
+
+
+

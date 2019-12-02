@@ -1,0 +1,46 @@
+<div class="header-device-mobile">
+    <div class="wapper">
+        <div class="item mobile-logo">
+            <div class="logo">
+                <%=logo%>
+            </div>
+        </div>
+        <div class="item item mobile-search-box has-sub">
+            <a href="#">
+                        <span class="icon">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </span>
+            </a>
+            <div class="block-sub">
+                <a href="#" class="close">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </a>
+                <div class="header-searchform-box">
+                    <%= form_tag spree.products_path, method: :get,  class: "header-searchform" do %>
+                        <div class="searchform-wrap">
+                        <%= search_field_tag :keywords,
+                        params[:keywords],
+                        placeholder: Spree.t(:search),
+                        class: "search-input" %>
+                         
+                        <button class="submit button" type="submit"><%=Spree.t(:search)%></button>
+                      </div>
+                    <% end%>
+ 
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="item mobile-settings-box has-sub" id="dislu_mobile_language">
+            <%= render partial: 'spree/shared/mobile_locales_bar' %>
+        </div>
+        <div class="item menu-bar">
+            <a class=" mobile-navigation  menu-toggle" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </div>
+</div>

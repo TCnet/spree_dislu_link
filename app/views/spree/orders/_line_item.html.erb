@@ -1,0 +1,47 @@
+<% variant = line_item.variant %>
+<%= order_form.fields_for :line_items, line_item do |item_form| %>
+<tr class="cart_item line-item">
+ <td class="product-remove" data-hook="cart_item_delete">
+      <%= link_to content_tag(:span, '', class: 'remove'), '#', class: 'delete', id: "delete_#{dom_id(line_item)}" %>
+    </td>
+  <td class="product-thumbnail">
+
+    <% if variant.images.length == 0 %>
+        <%= link_to product_image(variant.product), variant.product %>
+      <% else %>
+        <%= link_to image_tag(main_app.url_for(variant.images.first.url(:product)),class: 'attachment-shop_thumbnail size-shop_thumbnail wp-post-image'), variant.product %>
+      <% end %>
+  </td>
+  <td class="product-name" data-title="Product">
+    <%= link_to line_item.name, product_path(variant.product) %>
+  <span class="attributes-select"><%= variant.options_text %></span>
+  <% if line_item.insufficient_stock? %>
+  <span class="attributes-select out-of-stock">
+    <%= Spree.t(:out_of_stock) %>&nbsp;&nbsp;
+  </span>
+  <%end%>
+   
+  </td>
+  <td class="product-price" data-title="Price">
+    <span class="woocommerce-Price-amount amount">
+       <%= line_item.single_money.to_html %>
+    </span>
+  </td>
+  <td class="product-quantity" data-title="Quantity">
+    <div class="quantity">
+      <div class="control">
+       <a class="btn-number qtyminus quantity-minus pr-2" href="#">-</a>
+       <%= item_form.number_field :quantity, min: 0, class: "input-qty qty line_item_quantity", size: 5 %>
+      <a href="#" class="btn-number qtyplus quantity-plus ">+</a>
+      </div>
+    </div>
+  </td>
+  
+  <td class="product-subtotal" data-title="Price">
+  <span class="woocommerce-Price-amount amount">
+   <%= line_item.display_amount.to_html unless line_item.quantity.nil? %>
+ </span>
+</td>
+</tr>
+<% end %>
+

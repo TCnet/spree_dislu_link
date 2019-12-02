@@ -1,5 +1,138 @@
-<footer class="footer  py-3 bg-dark ">
-  <div class="container">
-    <span class="text-uppercase font-weight-light text-light">©2019 aodrusa </span>
-  </div>
+<footer class="footer style7">
+    <div class="container">
+        <div class="container-wapper">
+            <div class="row">
+                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <div class="widget-box">
+                        <div class="single-img">
+                        	<%= image_tag 'logo_light.png', alt: 'logo'%>
+                        </div>
+                        <ul class="menu">
+                            <li class="menu-item">
+                                <span class="flaticon-placeholder color-4"></span>
+                                <%= SpreeDisluLink::Config[:address]%>
+                             
+                            </li>
+                            <li class="menu-item">
+                                <span class="fa fa-phone color-4"></span>
+                                <%= SpreeDisluLink::Config[:phone]%>
+                            </li>
+                            <li class="menu-item">
+                                <a href="mailto:<%=SpreeDisluLink::Config[:email]%>"><span class="fa fa-envelope-o color-4"></span><%= SpreeDisluLink::Config[:email]%>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <span class="flaticon-clock color-4"></span>
+                                <%= SpreeDisluLink::Config[:work_time]%>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                    <div class="nozari-custommenu default">
+                        <h2 class="widgettitle"><%=Spree.t('quick_menu')%></h2>
+                        <ul class="menu">
+                             <% @taxonomies.each do |taxonomy| %>
+                            <li class="menu-item">
+                                 <%= link_to(taxonomy.name, seo_url(taxonomy.root))%>
+                            </li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-2">
+                    <div class="nozari-custommenu default" id="footer-informations">
+                        <h2 class="widgettitle"><%=Spree.t('information')%></h2>
+                        
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <div class="nozari-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title"><%=Spree.t('newsletter')%></h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                Get notified of new products, limited releases, and more.
+                            </div>
+                            <input type="email" class="input-text email email-newsletter"
+                                   placeholder="Your email letter">
+                            <button class="button btn-submit submit-newsletter">SUBSCRIBE</button>
+                        </div>
+                    </div>
+                    <div class="nozari-socials">
+                        <ul class="socials">
+                            <li>
+                                <a href="#" class="social-item" target="_blank">
+                                    <i class="icon fa fa-facebook"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="social-item" target="_blank">
+                                    <i class="icon fa fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="social-item" target="_blank">
+                                    <i class="icon fa fa-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 border-custom">
+                    <span></span>
+                </div>
+            </div>
+            <div class="footer-end">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="coppyright">
+                            Copyright © 2019
+                            <a href="#">Aodrusa</a>
+                            . All rights reserved
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="nozari-payment">
+                        	<%= image_tag 'payments.png', alt: 'payments'%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </footer>
+<div class="footer-device-mobile">
+    <div class="wapper">
+        <div class="footer-device-mobile-item device-home">
+             <%= link_to  spree.root_path do %>
+               <span class="icon">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </span>
+                    <%=Spree.t("home")%>
+             <%end %>
+        </div>
+        <div class="footer-device-mobile-item device-home device-cart" id="dislu-link-to-cart">
+         <%= mobil_link_cart %>
+        <script>Spree.fetch_dislu_cart()</script>
+        </div>
+        <div class="footer-device-mobile-item device-home device-user">
+            <%= link_to spree.account_path do%>
+					<span class="icon">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</span>
+                <%= Spree.t(:my_account)%>
+                  <%end %>
+           
+        </div>
+    </div>
+</div>
+<%=link_to get_local_url, class: 'backtotop' do %>
+<i class="pe-7s-angle-up"></i>
+<%end %>
+
+
+

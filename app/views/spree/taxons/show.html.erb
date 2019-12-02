@@ -1,0 +1,42 @@
+<div class="main-content main-content-product left-sidebar">
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+           <%= dislu_breadcrumbs(@taxon) %>
+        </div>
+      </div>
+       <%= render :partial => 'spree/shared/dislu_flash_message' %>
+      <div class="row">
+         <div class="sidebar col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                <div class="wrapper-sidebar shop-sidebar">
+                    <div class="widget woof_Widget">
+                       <%= render partial: 'spree/shared/dislu_taxonomies' %>
+                       <%= render partial: 'spree/shared/dislu_filters' if @taxon.leaf? %>
+                      
+                    </div>
+                </div>
+            </div>
+        <div class="content-area shop-grid-content no-banner col-lg-9 col-md-9 col-sm-12 col-xs-12">
+           <div class="site-main " data-hook="taxon_products">
+               <h3 class="custom_blog_title">
+                <%= @taxon.name %>
+              </h3>
+             <%= render partial: 'spree/shared/dislu_products', locals: { products: @products, taxon: @taxon } %>
+           </div>
+
+           <% unless params[:keywords].present? %>
+            <div class="site-main " data-hook="taxon_children">
+              <% cache [I18n.locale, @taxon] do %>
+                <%= render partial: 'taxon', collection: @taxon.children %>
+              <% end %>
+            </div>
+          <% end %>
+         </div>
+      </div>
+  </div>
+</div>
+
+
+
+<%= products_structured_data(@products) %>
+

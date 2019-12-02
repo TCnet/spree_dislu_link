@@ -1,0 +1,62 @@
+<% @body_id = 'cart' %>
+<% content_for :breadcrumb do %>
+<li class="trail-item trail-begin">
+  <%= link_to Spree.t(:home), spree.root_path %>
+</li>
+<li class="trail-item trail-end active">
+  <span>
+    <%= Spree.t(:shopping_cart) %>
+  </span>
+</li>
+<%end %>
+
+<div class="row">
+  <div class="main-content-cart main-content col-sm-12 pb-3 mt-0">
+    <h3 class="custom_blog_title my-0 py-0">
+      <%= Spree.t(:shopping_cart) %>
+    </h3>
+  </div>
+  <div class="page-main-content  col-sm-12">
+    <div class="shoppingcart-content mb-0 ">
+      <% if @order.line_items.empty? %>
+      <div data-hook="empty_cart mt-0 py-0">
+        <div class="alert alert-info"><%= Spree.t(:your_cart_is_empty) %></div>
+        <p>
+          <%= link_to Spree.t(:continue_shopping), products_path, class: 'button btn-continue-shopping' %>
+        </p>
+      </div>
+      <% else %>
+      <div data-hook="outside_cart_form">
+        <%= form_for @order, url: update_cart_path, html: { id: 'update-cart' } do |order_form| %>
+        <div data-hook="inside_cart_form">
+          <div data-hook="cart_items" class="table-responsive">
+            <%= render partial: 'form', locals: { order_form: order_form } %>
+          </div>
+          <div class="control-cart">
+           <%= button_tag class: 'button btn-cart-to-checkout', id: 'update-button' do %>
+           <%= Spree.t(:update) %>
+           <% end %>
+           <%= button_tag class: 'button btn-cart-to-checkout', id: 'checkout-link', name: 'checkout' do %>
+           <%= Spree.t(:checkout) %>
+           <% end %>
+         </div>
+         <% end %>
+       </div>
+       <div id="empty-cart" class="mt-0" data-hook>
+        <%= form_tag empty_cart_path, method: :put do %>
+        <p id="clear_cart_link" data-hook>
+          <%= submit_tag Spree.t(:empty_cart), class: 'btn btn-outline-secondary' %>
+          <%= Spree.t(:or) %>
+          <%= link_to Spree.t(:continue_shopping), products_path, class: 'continue' %>
+        </p>
+        <% end %>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  Spree.current_order_token = "<%= @order.token %>"
+</script>

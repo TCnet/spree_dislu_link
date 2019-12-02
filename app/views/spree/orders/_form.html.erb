@@ -1,0 +1,58 @@
+ <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>
+ <div class="cart-form">
+ <table class="shop_table">
+  <thead>
+    <tr>
+      <th class="product-remove"></th>
+      <th class="product-thumbnail"></th>
+      <th class="product-name"></th>
+      <th class="product-price"></th>
+      <th class="product-quantity"></th>
+      <th class="product-subtotal"></th>
+  </tr>
+</thead>
+  <tbody id="line_items" data-hook>
+    <%= render partial: 'spree/orders/line_item', collection: order_form.object.line_items, locals: { order_form: order_form } %>
+
+   <% if @order.adjustments.nonzero.exists? || @order.line_item_adjustments.nonzero.exists? || @order.shipment_adjustments.nonzero.exists? || @order.shipments.any? %>
+     <tr>
+        <td  class="actions pt-3 pb-0">
+             <div class="coupon" >
+                <%= Spree.t(:cart_subtotal, count: @order.line_items.sum(:quantity)) %>
+             </div>
+             <div class="order-total">
+                <%= order_form.object.display_item_total %>
+             </div>
+        </td>
+      </tr>
+      <%= render "spree/orders/adjustments" %>
+    <% end %>
+
+    <tr>
+         <td class="actions py-3">
+        <% if Spree::Frontend::Config[:coupon_codes_enabled] %>
+        <div class="coupon" data-hook='coupon_code'>
+            <%= order_form.label :coupon_code, class: 'coupon_code' %>
+            <%= order_form.text_field :coupon_code, size: '30', class: 'input-text' %>
+            <%= button_tag Spree.t(:coupon_code_apply), class: 'button' %>
+        </div>
+        <% end %>
+        <div class="order-total">
+            <span class="title">
+                <%= Spree.t(:total) %>
+            </span>
+            <span class="total-price">
+                <%= order_form.object.display_total %>
+            </span>
+        </div>
+    </tr>
+
+</tbody>
+</table>
+</td>
+
+
+
+
+
+

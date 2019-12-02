@@ -1,0 +1,63 @@
+ <div class="block-minicart nozari-mini-cart block-header nozari-dropdown">
+  <a href="javascript:void(0);" class="shopcart-icon" data-nozari="nozari-dropdown">
+    <%=Spree.t('cart')%>
+    <span class="count">
+      <%= dislu_link_cart_num %>
+    </span>
+  </a>
+<% if dislu_link_cart_num>0  %>
+<% @simpel_orders = get_simple_current_order %>
+<%= form_for @simpel_orders, url: update_cart_path, html: { id: 'dislu-update-cart' } do |order_form| %>
+  <div class="shopcart-description nozari-submenu">
+    <div class="content-wrap">
+     <h3 class="title"><%=Spree.t('shopping_cart')%></h3>
+     <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>
+     
+     <ul class="minicart-items">
+
+       <%= order_form.fields_for :line_items do |item_form| %>
+                <%= render :partial => 'spree/shared/topcart_line_items', :locals => { :variant => item_form.object.variant, :line_item => item_form.object, :item_form => item_form } if item_form.object.variant %>
+              <% end %>
+
+     
+
+     
+   
+     
+    </ul>
+      <div class="subtotal">
+        <span class="total-title">Subtotal: </span>
+        <span class="total-price">
+          <span class="Price-amount">
+            <%= @simpel_orders.display_total.to_html unless @simpel_orders.item_count.nil? %>
+          </span>
+        </span>
+      </div>
+      <div class="actions">
+        <%= link_to spree.cart_path,class: 'button button-viewcart' do%>
+           <span><%=Spree.t("view_bag")%></span>
+        <%end %>
+
+         <%= button_tag class: 'button button-checkout', id: 'checkout-link', name: 'checkout' do %>
+          <span> <%= Spree.t(:checkout) %></span>
+        <%end %>
+       
+        </div>
+     </div>
+    </div>  
+    <%end %>
+<% else %>
+<div class="no-product nozari-submenu">
+  <p class="text">
+    You have
+    <span>
+     0 item(s)
+   </span>
+   in your bag
+ </p>
+</div>
+<% end %>
+</div>
+<script>
+  Spree.current_order_token = "<%= get_simple_current_order.token %>"
+</script>

@@ -1,0 +1,27 @@
+<div class="login">
+<%= form_for Spree::User.new, as: :spree_user, url: spree.create_new_session_path, class: 'needs-validation' do |f| %>
+<fieldset id="password-credentials">
+    <p class="form-row form-row-wide">
+      <%= f.email_field :email, class: 'form-control', tabindex: 1, placeholder: Spree.t(:email),required: 'true' %>
+    </p>
+    <p class="form-row form-row-wide">
+      <%= f.password_field :password, class: 'form-control', tabindex: 2, placeholder: Spree.t(:password),required: 'true'%>
+     </p>
+     <p class="lost_password">
+      <span class="inline">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, Spree.t(:remember_me), class: 'label-text' %>
+      </span>
+      <%= link_to Spree.t(:forgot_password), spree.recover_password_path ,class: 'forgot-pw' %>
+      
+     </p>
+    
+      <p class="form-row">
+      <%= f.submit Spree.t(:login), class: 'button-submit', tabindex: 3 %>
+     </p>
+  </fieldset>
+  <% end %>
+</div>
+
+
+

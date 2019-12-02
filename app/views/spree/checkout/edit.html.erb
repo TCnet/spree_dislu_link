@@ -1,0 +1,51 @@
+<% @body_id = 'checkout-page' %>
+<% content_for :breadcrumb do %>
+<li class="trail-item trail-begin">
+  <%= link_to Spree.t(:home), spree.root_path %>
+</li>
+<li class="trail-item trail-end active">
+  <span>
+    <%= Spree.t(:checkout) %>
+  </span>
+</li>
+<%end %>
+<h3 class="custom_blog_title">
+ <%= Spree.t(:checkout) %>
+</h3>
+<div class="checkout-wrapp" id="checkout" data-hook>
+   <%= render partial: 'spree/shared/error_messages', locals: { target: @order } %>
+   <div class="col-md-12 mb-4" data-hook="checkout_progress">
+      <%= checkout_progress %>
+    </div>
+    <div class="shipping-address-form  checkout-form">
+    <div class="row" data-hook="checkout_content">
+    <div class="<%= if @order.state != 'confirm' then 'col-md-9' else 'col-md-12' end %> " data-hook="checkout_form_wrapper">
+      <div class="shipping-address">
+      <%= form_for @order, url: update_checkout_path(@order.state), html: { id: "checkout_form_#{@order.state}" } do |form| %>
+        <% if @order.state == 'address' || !@order.email? %>
+         <p class="form-row form-row-first">
+             <%= form.label :email %>
+             <%= form.email_field :email, class: 'input-text', required: true %>
+         </p>
+        <% end %>
+        <%= form.hidden_field :state_lock_version %>
+        <%= render @order.state, form: form %>
+      <% end %>
+    </div>
+    </div>
+    <% if @order.state != 'confirm' %>
+      <div id="checkout-summary" data-hook="checkout_summary_box" class="col-md-3">
+        <%= render partial: 'summary', locals: { order: @order } %>
+      </div>
+    <% end %>
+  </div>
+    </div>
+
+</div>
+
+
+
+<script>
+  Spree.current_order_id = "<%= @order.number %>"
+  Spree.current_order_token = "<%= @order.token %>"
+</script>

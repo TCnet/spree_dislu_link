@@ -1,0 +1,5 @@
+<h3 class="custom_blog_title">
+   <%= link_to taxon.name, seo_url(taxon), class: '' %>
+</h3>
+ <%= render partial: 'spree/shared/dislu_products', locals: { products: taxon_preview(taxon), taxon: taxon } %>
+

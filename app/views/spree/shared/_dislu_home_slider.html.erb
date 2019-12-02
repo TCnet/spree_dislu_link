@@ -1,0 +1,35 @@
+<% if !@home_sliders.nil?&& @home_sliders.count>0%>
+<div class="home-slider style1 mt-0 pt-1">
+            <div class="container">
+                <div class="slider-owl owl-slick equal-container nav-center"
+                     data-slick='{"autoplay":true, "autoplaySpeed":9000, "arrows":true, "dots":false, "infinite":true, "speed":1000, "rows":1}'
+                     data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":1}}]'>
+                     <% @home_sliders.each_with_index do |slider,index|%>
+                     <div class="slider-item style<%=index+1%>">
+                        <div class="slider-inner equal-element" 
+                        style="background-image: url(<%=main_app.url_for(slider.image.url(:banner))%>);" >
+                            <div class="slider-infor" >
+                                <h5 class="title-small">
+                                    <%=slider.name%>
+                                </h5>
+                                <h3 class="title-big">
+                                     <%=slider.note%>
+                                </h3>
+                                <div class="price">
+                                    Price from:
+                                    <span class="number-price">
+                                            $75.00
+                                        </span>
+                                </div>
+                                <%=  link_to slider.link,class: 'button btn-shop-the-look bgroud-style' do%>
+                                Shop now
+                                <%end %>
+                            </div>
+                        </div>
+                    </div>
+                     <%end %>
+                    
+                </div>
+            </div>
+        </div>
+        <%end%>

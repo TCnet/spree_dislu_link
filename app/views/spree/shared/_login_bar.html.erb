@@ -1,0 +1,19 @@
+<% if spree_current_user %>
+  <li>
+  	<%= link_to spree.account_path, class: "account pr-1"  do %>
+  <i class="fa fa-user mr-1" aria-hidden="true"></i><%=Spree.t(:my_account) %>
+  <% end %> 
+  <%= link_to spree.logout_path do %>
+  <i class="fa fa-sign-out mr-1" aria-hidden="true"></i><%=Spree.t(:logout) %>
+  <% end %>
+    
+  </li>
+ 
+<% else %>
+  <li id="link-to-login">
+  	<%= link_to spree.login_path do %>
+  <i class="fa fa-sign-in mr-1" aria-hidden="true"></i><%=Spree.t(:login) %>
+  <% end %>
+   
+  </li>
+<% end %>
