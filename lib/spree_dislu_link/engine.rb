@@ -1,6 +1,7 @@
 module SpreeDisluLink
   class Engine < Rails::Engine
     require 'spree/core'
+    require "font-awesome-rails"
  
 
     isolate_namespace Spree
