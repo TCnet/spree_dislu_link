@@ -15,7 +15,7 @@ Spree.config do |config|
   # config.track_inventory_levels = false
   config.logo = 'logo-aodrusa.png'
   config.admin_interface_logo = 'logo-admin.png'
-  config.layout = 'spree/layouts/dislu'
+  #config.layout = 'spree/layouts/dislu'
 
 end
 
