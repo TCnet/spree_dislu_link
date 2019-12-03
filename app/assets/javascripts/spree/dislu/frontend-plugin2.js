@@ -141,7 +141,7 @@ jQuery(document).ready(function ($) {
     }
 
     $(document).ready(function () {
-        nozari_google_maps();
+        //nozari_google_maps();
     });
     function nozari_init_menu_toggle() {
         var contain = '.nozari-nav-toggle';
@@ -769,7 +769,7 @@ jQuery(document).ready(function ($) {
     });
     $(window).resize(function () {
         //quickview_popup();
-        nozari_masonry()
+        nozari_masonry();
         kt_resizeMegamenu();
         nozari_remove_class_review();
         nozari_details_thumd_zoom();
