@@ -7,7 +7,7 @@ module SpreeDisluLink
           {
             mini:    '48x48>',
             small:   '100x100>',
-            medium:  '300x300>',
+            medium:  '250x250>',
             product: '400x400>',
             large:   '600x600>',
             big: '650x829>',

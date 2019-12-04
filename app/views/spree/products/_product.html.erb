@@ -1,5 +1,5 @@
 <% url = spree.product_path(product, taxon_id: taxon.try(:id)) %>
-<li id="product_<%= product.id %>" class="product-item  col-lg-4 col-md-6 col-sm-6 col-xs-6 col-ts-12 style-1" data-hook="products_list_item">
+<li id="product_<%= product.id %>" class="product-item col-xl-3  col-lg-4 col-md-6 col-sm-6 col-6 style-1" data-hook="products_list_item">
  <div class="product-inner equal-element">
     <% cache(taxon.present? ? [I18n.locale, current_currency, taxon, product] : cache_key_for_product(product)) do %>
     <%if is_new_product(product) %>
