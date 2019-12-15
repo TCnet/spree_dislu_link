@@ -20,17 +20,70 @@ module Spree
        default_url+"#"
     end
 
+    def tag_position(num=1)
+      #html('<meta itemprop="position" content="1">')
+      content_tag(:meta ,'',itemprop: 'position', content: num.to_s)
+    end
+
+    def get_url(url='')
+      if request.standard_port?
+        request.protocol+request.host+url
+      else
+        request.protocol+request.host_with_port+url
+      end
+
+      #request.protocol+request.host+url
+      
+    end
+
     def dislu_breadcrumbs(taxon, separator = '')
       return '' if current_page?('/') || taxon.nil?
+      num=1
 
       separator = raw(separator)
-      crumbs = [content_tag(:li, content_tag(:span, link_to(content_tag(:span, Spree.t(:home), itemprop: 'name'), spree.root_path, itemprop: 'url') + separator, itemprop: 'item'), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'trail-item')]
+      firts = content_tag :li , itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'trail-item' do
+        concat content_tag(:span, link_to(content_tag(:span, Spree.t(:home), itemprop: 'name'), get_url(spree.root_path), itemprop: 'url') + separator, itemprop: 'item')
+        concat (tag_position num)
+      end
+      crumbs= []
+      crumbs << firts
+
+
+     
       if taxon
-        crumbs << content_tag(:li, content_tag(:span, link_to(content_tag(:span, Spree.t(:products), itemprop: 'name'), spree.products_path, itemprop: 'url') + separator, itemprop: 'item'), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'trail-item begin')
-        crumbs << taxon.ancestors.collect { |ancestor| content_tag(:li, content_tag(:span, link_to(content_tag(:span, ancestor.name, itemprop: 'name'), seo_url(ancestor), itemprop: 'url') + separator, itemprop: 'item'), itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'trail-item') } unless taxon.ancestors.empty?
-        crumbs << content_tag(:li, content_tag(:span, link_to(content_tag(:span, taxon.name, itemprop: 'name'), seo_url(taxon), itemprop: 'url'), itemprop: 'item'), class: 'trail-item trail-end active', itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement')
+        num +=1
+        t1 = content_tag :li, itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'trail-item begin' do
+          concat content_tag(:span, link_to(content_tag(:span, Spree.t(:products), itemprop: 'name'),get_url(spree.products_path), itemprop: 'url') + separator, itemprop: 'item')
+          concat (tag_position num)
+        end
+        crumbs << t1
+
+        unless taxon.ancestors.empty?
+          ss=''
+          taxon.ancestors.each do |ancestor|
+            num +=1
+            ob = content_tag :li, itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement', class: 'trail-item' do
+              concat content_tag(:span, link_to(content_tag(:span, ancestor.name, itemprop: 'name'), get_url(seo_url(ancestor)), itemprop: 'url') + separator, itemprop: 'item')
+              concat (tag_position num)
+            end
+            ss+=ob
+          end
+          crumbs << ss
+        end
+        num +=1
+        last = content_tag :li, class: 'trail-item trail-end active', itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement' do
+          concat content_tag(:span, link_to(content_tag(:span, taxon.name, itemprop: 'name'), get_url(seo_url(taxon)), itemprop: 'url'), itemprop: 'item')
+          concat (tag_position num)
+        end
+
+        crumbs << last
       else
-        crumbs << content_tag(:li, content_tag(:span, Spree.t(:products), itemprop: 'item'), class: 'trail-item trail-end active', itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement')
+        rs= content_tag :li,class: 'trail-item trail-end active', itemscope: 'itemscope', itemtype: 'https://schema.org/ListItem', itemprop: 'itemListElement' do
+          concat content_tag(:span, Spree.t(:products), itemprop: 'item')
+          concat (tag_position num)
+        end
+
+        crumbs << rs
       end
       crumb_list = content_tag(:ul, raw(crumbs.flatten.map(&:mb_chars).join), class: 'trail-items breadcrumb', itemscope: 'itemscope', itemtype: 'https://schema.org/BreadcrumbList')
       content_tag(:div, crumb_list, id: 'breadcrumbs', class: 'breadcrumb-trail breadcrumbs', aria: { label: 'breadcrumb' })
