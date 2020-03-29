@@ -9,7 +9,10 @@ module Spree
                         :address,
                         :phone,
                         :email,
-                        :work_time
+                        :work_time,
+                        :facebook,
+                        :twitter,
+                        :instagram
                         ]
       end
 

@@ -9,6 +9,9 @@ class Spree::DisluConfiguration < Spree::Preferences::Configuration
   preference :email, :string
   preference :work_time, :string
 
-
+  preference :twitter, :string
+  preference :facebook, :string
+  preference :facebook, :string
+  preference :instagram, :string
   
 end
